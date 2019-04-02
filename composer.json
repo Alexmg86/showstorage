@@ -1,0 +1,42 @@
+{
+    "name": "alexmg86/showstorage",
+    "description": ":description",
+    "license": "license",
+    "authors": [
+        {
+            "name": "Aleksei Morozov",
+            "email": "alexmg86@mail.ru"
+        }
+    ],
+    "homepage": "https://github.com/alexmg86/showstorage",
+    "keywords": ["Laravel", "ShowStorage"],
+    "require": {
+        "illuminate/support": "~5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~7.0",
+        "mockery/mockery": "^1.1",
+        "orchestra/testbench": "~3.0",
+        "sempro/phpunit-pretty-print": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "alexmg86\\ShowStorage\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "alexmg86\\ShowStorage\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "alexmg86\\ShowStorage\\ShowStorageServiceProvider"
+            ],
+            "aliases": {
+                "ShowStorage": "alexmg86\\ShowStorage\\Facades\\ShowStorage"
+            }
+        }
+    }
+}
