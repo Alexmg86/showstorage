@@ -12,9 +12,9 @@ $ composer require alexmg86/showstorage
 
 ## Usage
 
-To get all files from some folder
-``` bash
-$files = ShowStorage::getFiles();
+To get all files from some folder. If you do not specify an explicit path, storage_path ('app') will be processed.
+``` php
+$files = ShowStorage::getFiles($path);
 ```
 
 ## Security
