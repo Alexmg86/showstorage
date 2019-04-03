@@ -15,10 +15,10 @@ class ShowStorage
     	$path = $path ? $path : storage_path('app');
     	$allFiles = [];
     	$folders = self::getItems($path, 1);
-    	$allFiles['/'] = self::checkFiles($path);
+    	$allFiles['dir_/'] = self::checkFiles($path);
     	if ($folders) {
     		foreach ($folders as $folder) {
-    			$allFiles[$folder] = self::checkDir($folder, $path);		
+    			$allFiles['dir_'.$folder] = self::checkDir($folder, $path);		
     		}
     	}
     	return $allFiles;
@@ -54,11 +54,11 @@ class ShowStorage
     private static function checkDir($folder, $path = '')
     {
     	$path = $path . '/' . $folder;
-    	$allFiles['/'] = self::checkFiles($path);
+    	$allFiles['dir_/'] = self::checkFiles($path);
     	$folders = self::getItems($path, 1);
     	if ($folders) {
     		foreach ($folders as $folder) {
-    			$allFiles[$folder] = self::checkDir($folder, $path);		
+    			$allFiles['dir_'.$folder] = self::checkDir($folder, $path);		
     		}
     	}
     	return $allFiles;
