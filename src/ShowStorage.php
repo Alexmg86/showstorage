@@ -6,9 +6,13 @@ use Illuminate\Support\Facades\Storage;
 
 class ShowStorage
 {
-    public static function getFiles()
+	/**
+	 * Main method to get all files and folders
+	 * @return [type] [description]
+	 */
+    public static function getFiles($path = null)
     {
-    	$path = storage_path('app');
+    	$path = $path ? $path : storage_path('app');
     	$allFiles = [];
     	$folders = self::getItems($path, 1);
     	$allFiles['/'] = self::checkFiles($path);
@@ -17,7 +21,7 @@ class ShowStorage
     			$allFiles[$folder] = self::checkDir($folder, $path);		
     		}
     	}
-    	dd($allFiles);
+    	return $allFiles;
     }
 
     /**
