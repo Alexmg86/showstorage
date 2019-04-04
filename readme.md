@@ -1,5 +1,8 @@
 # ShowStorage
 
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Build Status](https://travis-ci.org/Alexmg86/showstorage.svg?branch=master)](https://travis-ci.org/Alexmg86/showstorage)
+
 This is where your description should go. Take a look at [contributing.md](contributing.md) to see a to do list.
 
 ## Installation
