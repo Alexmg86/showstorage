@@ -1,7 +1,7 @@
 {
     "name": "alexmg86/showstorage",
     "description": ":description",
-    "license": "license",
+    "license": "MIT",
     "authors": [
         {
             "name": "Aleksei Morozov",
