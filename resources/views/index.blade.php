@@ -12,14 +12,43 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     </head>
     <style type="text/css">
-        ul {
+        ul.file-list, ul.file-list-items {
             list-style: none;
             margin: 0;
             padding: 0;
-            padding-left: 15px;
+            padding-left: 20px;
         }
-        ul.file-list {
+        ul.file-list, ul.file-list li {
+            position: relative;
+        }
+        ul.file-list::before {
+            content: '';
+            height: 100%;
+            width: 1px;
+            background: #28a745;
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 6px;
+        }
+        ul.file-list:last-child::before {
+            height: 12px;
+        }
+        ul.file-list li::before {
+            content: '';
+            height: 1px;
+            width: 8px;
+            background: #28a745;
+            display: block;
+            position: absolute;
+            top: 12px;
+            left: -14px;
+        }
+        ul.file-list-items {
             padding-left: 0;
+        }
+        .fa-file {
+            padding-right: 6px;
         }
     </style>
     <body>
@@ -30,9 +59,9 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Show all your files</h5>
-                        @foreach($files as $key => $item)
-                        @include('showstorage::item', ['folder' => $key, 'items' => $item])
-                        @endforeach
+                    @foreach($files as $key => $item)
+                    @include('showstorage::item', ['folder' => $key, 'items' => $item])
+                    @endforeach
                 </div>
             </div>
         </div>
