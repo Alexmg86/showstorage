@@ -15,7 +15,8 @@ class ShowStorage
     	$path = $path ? $path : storage_path('app');
     	$allFiles = [];
     	$folders = self::getItems($path, 1);
-    	$allFiles['dir_/'] = self::checkFiles($path);
+        $allFiles['dir_/']['path'] = encrypt($path);
+        $allFiles['dir_/']['files'] = self::checkFiles($path);
     	if ($folders) {
     		foreach ($folders as $folder) {
     			$allFiles['dir_'.$folder] = self::checkDir($folder, $path);		
@@ -54,7 +55,8 @@ class ShowStorage
     private static function checkDir($folder, $path = '')
     {
     	$path = $path . '/' . $folder;
-    	$allFiles['dir_/'] = self::checkFiles($path);
+    	$allFiles['dir_/']['path'] = encrypt($path);
+        $allFiles['dir_/']['files'] = self::checkFiles($path);
     	$folders = self::getItems($path, 1);
     	if ($folders) {
     		foreach ($folders as $folder) {

@@ -16,7 +16,7 @@
             list-style: none;
             margin: 0;
             padding: 0;
-            padding-left: 20px;
+            padding-left: 30px;
         }
         ul.file-list, ul.file-list li {
             position: relative;
@@ -50,14 +50,25 @@
         .fa-file {
             padding-right: 6px;
         }
+        .form-check-input {
+            position: absolute;
+            left: -10px;
+        }
     </style>
     <body>
         <div class="container">
             <div class="card">
                 <div class="card-header">
-                    List files
+                    <div class="row">
+                        <div class="col-6">
+                            <span class="align-middle">List files</span>
+                        </div>
+                        <div class="col-6">
+                            <button type="button" class="btn btn-outline-danger btn-sm float-right" onclick="deleteFiles()">Delete</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" id="files-box">
                     <h5 class="card-title">Show all your files</h5>
                     @foreach($files as $key => $item)
                     @include('showstorage::item', ['folder' => $key, 'items' => $item])
@@ -67,6 +78,33 @@
         </div>
     </body>
     <script type="text/javascript">
+        function deleteFiles() {
+            var fileBox = document.getElementById('files-box');
+            var inputs = fileBox.querySelectorAll('input:checked');
+            inputs = Array.from(inputs);
+            var items = {'file': [], 'folder': []};
+            inputs.forEach(function(item) {
+                items[item.dataset.type].push(item);
+            });
+            deleteItems(items['file'], 'file');
+            deleteItems(items['folder'], 'folder');
+            submitForDelete(items);
+        }
+
+        function deleteItems(items, type) {
+            items.forEach(function(item) {
+                var ulMain = item.closest('.file-list');
+                var ulItem = item.closest('.file-list-items');
+                item.closest('li').remove();
+                if(ulItem) {
+                    var li = ulItem.getElementsByTagName('li');
+                }
+                if(type == 'folder' || li.length < 1) {
+                    ulMain.remove();
+                }
+            });
+        }
+
         function selectFoder(event) {
             var inputs = event.target.closest('ul').getElementsByTagName('input');
             inputs = Array.from(inputs);
@@ -74,5 +112,15 @@
                 item.checked = event.target.checked ? true : false;
             });
         }
+
+        function submitForDelete(items) {
+            console.log(items);
+            for(var k in items) {
+                items[k].forEach(function(item) {
+                    console.log(item.closest('li').dataset.path);
+                });
+            }
+        }
+
     </script>
 </html>
