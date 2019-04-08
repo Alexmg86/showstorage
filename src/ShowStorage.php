@@ -78,6 +78,7 @@ class ShowStorage
     			$bytes = filesize($path . '/' . $file);
     			$filesInfo[$key]['size'] =  self::formatBytes($bytes);
     			$filesInfo[$key]['name'] =  $file;
+                $filesInfo[$key]['path'] =  encrypt($path . '/' . $file);
     		}
     	}
     	return $filesInfo;

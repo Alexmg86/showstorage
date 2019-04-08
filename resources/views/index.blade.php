@@ -66,4 +66,13 @@
             </div>
         </div>
     </body>
+    <script type="text/javascript">
+        function selectFoder(event) {
+            var inputs = event.target.closest('ul').getElementsByTagName('input');
+            inputs = Array.from(inputs);
+            inputs.forEach(function(item) {
+                item.checked = event.target.checked ? true : false;
+            });
+        }
+    </script>
 </html>
