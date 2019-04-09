@@ -77,34 +77,44 @@
             </div>
         </div>
     </body>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="text/javascript">
         function deleteFiles() {
             var fileBox = document.getElementById('files-box');
             var inputs = fileBox.querySelectorAll('input:checked');
             inputs = Array.from(inputs);
             var items = {'file': [], 'folder': []};
+            var paths = {'file': [], 'folder': []};
             inputs.forEach(function(item) {
                 items[item.dataset.type].push(item);
             });
-            deleteItems(items['file'], 'file');
-            deleteItems(items['folder'], 'folder');
-            submitForDelete(items);
+            paths = deleteItems(items['file'], 'file', paths);
+            paths = deleteItems(items['folder'], 'folder', paths);
+            submitForDelete(paths);
         }
 
-        function deleteItems(items, type) {
+        function deleteItems(items, type, paths) {
+            if(type == 'folder') {
+                items = items.reverse()
+            }
             items.forEach(function(item) {
                 var ulMain = item.closest('.file-list');
                 var ulItem = item.closest('.file-list-items');
                 if(type == 'file') {
                     item.closest('li').remove();
+                    paths[type].push(item.closest('li').dataset.path);
                     var ch = ulItem.getElementsByTagName('li');
                 } else {
                     var ch = ulMain.getElementsByTagName('ul');
                 }
                 if(ch.length == 0) {
                     ulMain.remove();
+                    if(type == 'folder') {
+                        paths[type].push(item.closest('li').dataset.path);
+                    }
                 }
             });
+            return paths;
         }
 
         function selectFoder(event) {
@@ -115,13 +125,14 @@
             });
         }
 
-        function submitForDelete(items) {
-            // console.log(items);
-            for(var k in items) {
-                items[k].forEach(function(item) {
-                    // console.log(item.closest('li').dataset.path);
+        function submitForDelete(paths) {
+            let formData = new FormData();
+            for(var k in paths) {
+                paths[k].forEach(function(item) {
+                    formData.append('data['+k+'][]', item);
                 });
             }
+            axios.post('/deleteFiles', formData);
         }
 
     </script>
