@@ -95,11 +95,13 @@
             items.forEach(function(item) {
                 var ulMain = item.closest('.file-list');
                 var ulItem = item.closest('.file-list-items');
-                item.closest('li').remove();
-                if(ulItem) {
-                    var li = ulItem.getElementsByTagName('li');
+                if(type == 'file') {
+                    item.closest('li').remove();
+                    var ch = ulItem.getElementsByTagName('li');
+                } else {
+                    var ch = ulMain.getElementsByTagName('ul');
                 }
-                if(type == 'folder' || li.length < 1) {
+                if(ch.length == 0) {
                     ulMain.remove();
                 }
             });
@@ -114,10 +116,10 @@
         }
 
         function submitForDelete(items) {
-            console.log(items);
+            // console.log(items);
             for(var k in items) {
                 items[k].forEach(function(item) {
-                    console.log(item.closest('li').dataset.path);
+                    // console.log(item.closest('li').dataset.path);
                 });
             }
         }
