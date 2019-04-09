@@ -34,7 +34,7 @@ class ShowStorage
     private static function getItems($path, $type)
     {
     	$list = [];
-    	$items = preg_grep('/^([^.])/', scandir($path));
+        $items = array_diff(scandir($path), array('.','..'));// 
     	foreach ($items as $item) {
     		if($type == 1 && is_dir($path . '/' . $item)) {
     			$list[] = $item;
@@ -99,4 +99,34 @@ class ShowStorage
     	$pow = min($pow, count($units) - 1); 
     	return round($bytes, $precision) . ' ' . $units[$pow]; 
     } 
+
+    /**
+     * Delete files and folders from request
+     * @param  array $items  array paths from request
+     */
+    public static function deleteFiles($items)
+    {
+        foreach ($items as $types) {
+            foreach ($types as $item) {
+                $path = decrypt($item);
+                if (is_file($path)) {
+                    unlink($path);
+                } elseif (is_dir($path)) {
+                    self::delDir($path);
+                }
+            }
+        }
+    }
+
+    /**
+     * Delete folder with all files inside
+     * @param  string $path Path to folder
+     */
+    private static function delDir($path) { 
+        $files = array_diff(scandir($path), array('.','..'));
+        foreach ($files as $file) {
+            (is_dir("$path/$file")) ? delTree("$path/$file") : unlink("$path/$file"); 
+        }
+        rmdir($path); 
+    }
 }

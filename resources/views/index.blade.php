@@ -129,7 +129,7 @@
             let formData = new FormData();
             for(var k in paths) {
                 paths[k].forEach(function(item) {
-                    formData.append('data['+k+'][]', item);
+                    formData.append('items['+k+'][]', item);
                 });
             }
             axios.post('/deleteFiles', formData);
