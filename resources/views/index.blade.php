@@ -124,7 +124,7 @@
                 item.checked = event.target.checked ? true : false;
             });
         }
-
+        
         function submitForDelete(paths) {
             let formData = new FormData();
             for(var k in paths) {
@@ -134,6 +134,5 @@
             }
             axios.post('/deleteFiles', formData);
         }
-
     </script>
 </html>

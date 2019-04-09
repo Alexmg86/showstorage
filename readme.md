@@ -20,6 +20,13 @@ To get all files from some folder. If you do not specify an explicit path, stora
 $files = ShowStorage::getFiles($path);
 ```
 
+To delete the selected files, you must specify the following method.
+``` php
+Route::post('/deleteFiles', function (Request $request) {
+	ShowStorage::deleteFiles($request->items);
+});
+```
+
 ## Security
 
 If you discover any security related issues, please email author email instead of using the issue tracker.
